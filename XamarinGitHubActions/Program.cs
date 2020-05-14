@@ -6,7 +6,7 @@ namespace XamarinGitHubActions
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Hello GitHub Actions World!");
         }
     }
 }
