@@ -1,5 +1,7 @@
 # Xamarin + GitHub Actions
 
+![Build App](https://github.com/mattleibow/XamarinGitHubActions/workflows/Build%20App/badge.svg)
+
 The repo for my awesome 🤞🏻 talk...
 
 > **The Pandemic Approach to CI for Xamarin Apps with GitHub Actions**
