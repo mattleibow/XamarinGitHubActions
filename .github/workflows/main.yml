@@ -19,30 +19,6 @@ jobs:
           dotnet-version: 3.1.101
       - name: Build
         run: dotnet build -c Release
-      - name: Build
-        run: dotnet clean -c Release
-      - name: Build
-        run: dotnet build -c Release
-      - name: Build
-        run: dotnet clean -c Release
-      - name: Build
-        run: dotnet build -c Release
-      - name: Build
-        run: dotnet clean -c Release
-      - name: Build
-        run: dotnet build -c Release
-      - name: Build
-        run: dotnet clean -c Release
-      - name: Build
-        run: dotnet build -c Release
-      - name: Build
-        run: dotnet clean -c Release
-      - name: Build
-        run: dotnet build -c Release
-      - name: Build
-        run: dotnet clean -c Release
-      - name: Build
-        run: dotnet build -c Release
       - name: Publish
         run: dotnet publish -c Release -o output
       - name: Upload Artifacts
@@ -53,6 +29,7 @@ jobs:
   run:
     name: Run App
     runs-on: windows-latest
+    needs: [ build ]
     steps:
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v1
