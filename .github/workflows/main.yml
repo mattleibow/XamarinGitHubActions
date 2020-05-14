@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    name: Build .NET Core Console App
+    name: Build App
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -26,3 +26,17 @@ jobs:
         with:
           name: App
           path: output
+  run:
+    name: Run App
+    runs-on: windows-latest
+    steps:
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1.101
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: App
+      - name: Run
+        run: dotnet XamarinGitHubActions.dll
