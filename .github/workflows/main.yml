@@ -21,6 +21,12 @@ jobs:
           xamarin-mac-version: latest latest
           xamarin-android-version: latest
           xcode-version: latest
+      - name: Download iOS Certificate
+        uses: timheuer/base64-to-file@v1.0.3
+        with:
+          fileName: '${{ env.GITHUB_WORKSPACE }}/ios_certificate.p12'
+          encodedString: ${{ secrets.SOME_ENCODED_STRING }}
+      - run: ls
       - name: Build App
         run: msbuild ./MobileApp.iOS/MobileApp.iOS.csproj /r /p:Configuration=Release /p:Platform=iPhone
 
