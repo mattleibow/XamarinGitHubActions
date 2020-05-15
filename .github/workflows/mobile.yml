@@ -36,18 +36,18 @@ jobs:
           profiles: iOSProvisioning.mobileprovision.gpg
           certificates: iOSCertificate.p12.gpg
           cert_passwords: ${{ secrets.IOS_CERTIFICATE_PASSWORD }}
-      - name: Build App
-        run: msbuild ./MobileApp/MobileApp.iOS/MobileApp.iOS.csproj /r /p:Configuration=Release /p:Platform=iPhone
-      - name: Copy Build Output
-        run: |
-          New-Item ./output -Type Directory -Force
-          Copy-Item ./MobileApp/MobileApp.iOS/bin/Release/*.app ./output/ -Recurse -Force
-          Copy-Item ./MobileApp/MobileApp.iOS/bin/Release/*.app.*SYM ./output/ -Recurse -Force
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: iOS App
-          path: output
+      # - name: Build App
+      #   run: msbuild ./MobileApp/MobileApp.iOS/MobileApp.iOS.csproj /r /p:Configuration=Release /p:Platform=iPhone
+      # - name: Copy Build Output
+      #   run: |
+      #     New-Item ./output -Type Directory -Force
+      #     Copy-Item ./MobileApp/MobileApp.iOS/bin/Release/*.app ./output/ -Recurse -Force
+      #     Copy-Item ./MobileApp/MobileApp.iOS/bin/Release/*.app.*SYM ./output/ -Recurse -Force
+      # - name: Upload Artifacts
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: iOS App
+      #     path: output
 
   # Android
   build_android:
@@ -56,22 +56,22 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Setup Xamarin
-        uses: maxim-lobanov/setup-xamarin@v1.1
-        with:
-          xamarin-ios-version: latest
-          xamarin-mac-version: latest
-          xamarin-android-version: latest
-          xcode-version: latest
-      - name: Build App
-        run: msbuild ./MobileApp/MobileApp.Android/MobileApp.Android.csproj /r /p:Configuration=Release /t:SignAndroidPackage
-      - name: Copy Build Output
-        run: |
-          New-Item ./output -Type Directory -Force
-          Copy-Item ./MobileApp/MobileApp.Android/bin/Release/*-Signed.aab ./output/
-          Copy-Item ./MobileApp/MobileApp.Android/bin/Release/*.aab.mSYM ./output/ -Recurse -Force
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: Android App
-          path: output
+      # - name: Setup Xamarin
+      #   uses: maxim-lobanov/setup-xamarin@v1.1
+      #   with:
+      #     xamarin-ios-version: latest
+      #     xamarin-mac-version: latest
+      #     xamarin-android-version: latest
+      #     xcode-version: latest
+      # - name: Build App
+      #   run: msbuild ./MobileApp/MobileApp.Android/MobileApp.Android.csproj /r /p:Configuration=Release /t:SignAndroidPackage
+      # - name: Copy Build Output
+      #   run: |
+      #     New-Item ./output -Type Directory -Force
+      #     Copy-Item ./MobileApp/MobileApp.Android/bin/Release/*-Signed.aab ./output/
+      #     Copy-Item ./MobileApp/MobileApp.Android/bin/Release/*.aab.mSYM ./output/ -Recurse -Force
+      # - name: Upload Artifacts
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: Android App
+      #     path: output
