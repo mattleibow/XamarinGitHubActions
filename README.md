@@ -15,10 +15,6 @@ The repo for my awesome 🤞🏻 talk...
 Certificates, provisioning profiles, keystores and others are gpg signed and stored as Base64 secrets.
 
 
-```
-dotnet tool install --global dotnet-base64
-```
-
 ```ps
 # the secure, secret password
 $passphrase = "password"
@@ -32,6 +28,6 @@ gpg --batch --passphrase $passphrase --symmetric --cipher-algo AES256 iOSCertifi
 gpg --batch --passphrase $passphrase --symmetric --cipher-algo AES256 iOSProvisioning.mobileprovision
 
 # get the base64 for storage
-base64 -f iOSCertificate.p12.gpg > iOSCertificate.p12.base64
-base64 -f iOSProvisioning.mobileprovision.gpg > iOSProvisioning.mobileprovision.base64
+[IO.File]::WriteAllText("iOSProvisioning.mobileprovision.base64", [System.Convert]::ToBase64String([IO.File]::ReadAllBytes("iOSProvisioning.mobileprovision.gpg")))
+[IO.File]::WriteAllText("iOSCertificate.p12.base64", [System.Convert]::ToBase64String([IO.File]::ReadAllBytes("iOSCertificate.p12.gpg")))
 ```
