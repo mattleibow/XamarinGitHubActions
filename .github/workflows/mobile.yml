@@ -18,35 +18,35 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      # - name: Setup Xamarin
-      #   uses: maxim-lobanov/setup-xamarin@v1.1
-      #   with:
-      #     xamarin-ios-version: latest
-      #     xamarin-mac-version: latest
-      #     xamarin-android-version: latest
-      #     xcode-version: latest
-      # - name: Download iOS Provisioning Profile
-      #   run: '[IO.File]::WriteAllBytes("iOSProvisioning.mobileprovision.gpg", [System.Convert]::FromBase64String("${{ secrets.IOS_PROVISIONING }}"))'
-      # - name: Download iOS Certificate
-      #   run: '[IO.File]::WriteAllBytes("iOSCertificate.p12.gpg", [System.Convert]::FromBase64String("${{ secrets.IOS_CERTIFICATE }}"))'
-      # - name: Install iOS Certificates & Provisioning Profiles
-      #   uses: tomlinscote/action-xcode-profiles@latest
-      #   with:
-      #     password: ${{ secrets.GPG_PASSPHRASE }}
-      #     profiles: iOSProvisioning.mobileprovision.gpg
-      #     certificates: iOSCertificate.p12.gpg
-      #     cert_passwords: ${{ secrets.IOS_CERTIFICATE_PASSWORD }}
-      # - name: Build App
-      #   run: msbuild ./MobileApp/MobileApp.iOS/MobileApp.iOS.csproj /r /p:Configuration=Release /p:Platform=iPhone
-      #   run: |
-      #     New-Item ./output -Type Directory -Force
-      #     Copy-Item ./MobileApp/MobileApp.iOS/bin/Release/*.app ./output/ -Recurse -Force
-      #     Copy-Item ./MobileApp/MobileApp.iOS/bin/Release/*.app.*SYM ./output/ -Recurse -Force
-      # - name: Upload Artifacts
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: iOS App
-      #     path: output
+      - name: Setup Xamarin
+        uses: maxim-lobanov/setup-xamarin@v1.1
+        with:
+          xamarin-ios-version: latest
+          xamarin-mac-version: latest
+          xamarin-android-version: latest
+          xcode-version: latest
+      - name: Download iOS Provisioning Profile
+        run: '[IO.File]::WriteAllBytes("iOSProvisioning.mobileprovision.gpg", [System.Convert]::FromBase64String("${{ secrets.IOS_PROVISIONING }}"))'
+      - name: Download iOS Certificate
+        run: '[IO.File]::WriteAllBytes("iOSCertificate.p12.gpg", [System.Convert]::FromBase64String("${{ secrets.IOS_CERTIFICATE }}"))'
+      - name: Install iOS Certificates & Provisioning Profiles
+        uses: tomlinscote/action-xcode-profiles@latest
+        with:
+          password: ${{ secrets.GPG_PASSPHRASE }}
+          profiles: iOSProvisioning.mobileprovision.gpg
+          certificates: iOSCertificate.p12.gpg
+          cert_passwords: ${{ secrets.IOS_CERTIFICATE_PASSWORD }}
+      - name: Build App
+        run: msbuild ./MobileApp/MobileApp.iOS/MobileApp.iOS.csproj /r /p:Configuration=Release /p:Platform=iPhone
+        run: |
+          New-Item ./output -Type Directory -Force
+          Copy-Item ./MobileApp/MobileApp.iOS/bin/Release/*.app ./output/ -Recurse -Force
+          Copy-Item ./MobileApp/MobileApp.iOS/bin/Release/*.app.*SYM ./output/ -Recurse -Force
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: iOS App
+          path: output
 
   # Android
   build_android:
