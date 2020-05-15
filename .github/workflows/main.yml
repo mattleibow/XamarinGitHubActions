@@ -21,10 +21,10 @@ jobs:
           xamarin-mac-version: latest
           xamarin-android-version: latest
           xcode-version: latest
-      - name: 'Download iOS Certificate  ${{ env.GITHUB_WORKSPACE }}'
+      - name: 'Download iOS Certificate  ${{ var.GITHUB_WORKSPACE }}'
         uses: timheuer/base64-to-file@v1.0.3
         with:
-          fileName: '${{ env.GITHUB_WORKSPACE }}/ios_certificate.p12'
+          fileName: '${{ variables.GITHUB_WORKSPACE }}/ios_certificate.p12'
           encodedString: ${{ secrets.IOS_CERTIFICATE }}
       - run: ls
       - name: Build App
