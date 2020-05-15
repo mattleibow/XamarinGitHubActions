@@ -31,10 +31,11 @@ jobs:
         with:
           fileName: 'ios_provisioning.mobileprovision.gpg'
           encodedString: ${{ secrets.IOS_PROVISIONING }}
-      - uses: "tomlinscote/action-xcode-profiles@latest"
+      - name: Install iOS Certificates & Provisioning Profiles
+        uses: "tomlinscote/action-xcode-profiles@latest"
         with:
           password: "${{ secrets.GPG_PASSPHRASE }}"
-          profiles: '${{ env.RUNNER_TEMP }}/ios_provisioning.mobileprovision.gpg'
+          profiles: '${{ github.RUNNER_TEMP }}/ios_provisioning.mobileprovision.gpg'
           certificates: '${{ env.RUNNER_TEMP }}/ios_certificate.p12.gpg'
           cert_passwords: ${{ secrets.IOS_CERTIFICATE_PASSWORD }}
       - name: Build App
