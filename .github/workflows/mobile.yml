@@ -69,9 +69,9 @@ jobs:
       - name: Copy Build Output
         run: |
           New-Item ./output -Type Directory -Force
-          Copy-Item ./MobileApp/MobileApp.iOS/bin/Release/*.app ./output/ -Recurse -Force
-          Copy-Item ./MobileApp/MobileApp.iOS/bin/Release/*.app.dSYM ./output/ -Recurse -Force
-          Copy-Item ./MobileApp/MobileApp.iOS/bin/Release/*.app.mSYM ./output/ -Recurse -Force
+          Copy-Item ./MobileApp/MobileApp.iOS/bin/iPhone/Release/*.app ./output/ -Recurse -Force
+          Copy-Item ./MobileApp/MobileApp.iOS/bin/iPhone/Release/*.app.dSYM ./output/ -Recurse -Force
+          Copy-Item ./MobileApp/MobileApp.iOS/bin/iPhone/Release/*.app.mSYM ./output/ -Recurse -Force
       - name: Upload Artifacts
         uses: actions/upload-artifact@v2
         with:
