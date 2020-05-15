@@ -25,7 +25,7 @@ jobs:
         uses: timheuer/base64-to-file@v1.0.3
         with:
           fileName: '${{ env.GITHUB_WORKSPACE }}/ios_certificate.p12'
-          encodedString: ${{ secrets.SOME_ENCODED_STRING }}
+          encodedString: ${{ secrets.IOS_CERTIFICATE }}
       - run: ls
       - name: Build App
         run: msbuild ./MobileApp.iOS/MobileApp.iOS.csproj /r /p:Configuration=Release /p:Platform=iPhone
