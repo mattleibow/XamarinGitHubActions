@@ -33,6 +33,8 @@ jobs:
         with:
           fileName: ios_provisioning.mobileprovision.gpg
           encodedString: ${{ secrets.IOS_PROVISIONING }}
+      - run: cat ${{ steps.ios_prov.outputs.filePath }}
+      - run: gpg --passphrase ${{ secrets.GPG_PASSPHRASE }} -d ${{ steps.ios_prov.outputs.filePath }}
       - name: Install iOS Certificates & Provisioning Profiles
         uses: tomlinscote/action-xcode-profiles@latest
         with:
