@@ -37,8 +37,8 @@ jobs:
         uses: "tomlinscote/action-xcode-profiles@latest"
         with:
           password: "${{ secrets.GPG_PASSPHRASE }}"
-          profiles: '${{ steps.ios_prov.outputs.filePath }}/ios_provisioning.mobileprovision.gpg'
-          certificates: '${{ steps.ios_cert.outputs.filePath }}/ios_certificate.p12.gpg'
+          profiles: ${{ steps.ios_prov.outputs.filePath }}
+          certificates: ${{ steps.ios_cert.outputs.filePath }}
           cert_passwords: ${{ secrets.IOS_CERTIFICATE_PASSWORD }}
       - name: Build App
         run: msbuild ./MobileApp.iOS/MobileApp.iOS.csproj /r /p:Configuration=Release /p:Platform=iPhone
