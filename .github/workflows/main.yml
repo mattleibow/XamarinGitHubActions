@@ -22,9 +22,9 @@ jobs:
           xamarin-android-version: latest
           xcode-version: latest
       - name: Download iOS Provisioning Profile
-        run: [IO.File]::WriteAllBytes("iOSProvisioning.mobileprovision.gpg", [System.Convert]::FromBase64String("${{ secrets.IOS_PROVISIONING }}"))
+        run: '[IO.File]::WriteAllBytes("iOSProvisioning.mobileprovision.gpg", [System.Convert]::FromBase64String("${{ secrets.IOS_PROVISIONING }}"))'
       - name: Download iOS Certificate
-        run: [IO.File]::WriteAllBytes("iOSCertificate.p12.gpg", [System.Convert]::FromBase64String("${{ secrets.IOS_CERTIFICATE }}"))
+        run: '[IO.File]::WriteAllBytes("iOSCertificate.p12.gpg", [System.Convert]::FromBase64String("${{ secrets.IOS_CERTIFICATE }}"))'
       - name: Install iOS Certificates & Provisioning Profiles
         uses: tomlinscote/action-xcode-profiles@latest
         with:
