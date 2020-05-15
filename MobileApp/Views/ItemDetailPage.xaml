@@ -7,11 +7,14 @@
     Title="{Binding Title}"
     mc:Ignorable="d">
 
-    <StackLayout Padding="15" Spacing="20">
-        <Label FontSize="Medium" Text="Text:" />
-        <Label FontSize="Medium" Text="{Binding Item.Text}" />
-        <Label FontSize="Medium" Text="Description:" />
-        <Label FontSize="Small" Text="{Binding Item.Description}" />
-    </StackLayout>
+    <ScrollView>
+        <StackLayout Padding="15" Spacing="20">
+            <Label FontAttributes="Bold" FontSize="Medium" />
+            <Label FontSize="Medium" Text="{Binding Item.Text}" />
+
+            <Label FontSize="Medium" Text="Description:" />
+            <Label FontSize="Small" Text="{Binding Item.Description}" />
+        </StackLayout>
+    </ScrollView>
 
 </ContentPage>
