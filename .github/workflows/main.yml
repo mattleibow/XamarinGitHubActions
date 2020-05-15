@@ -24,7 +24,7 @@ jobs:
       - name: Download iOS Certificate
         uses: timheuer/base64-to-file@v1.0.3
         with:
-          fileName: '${{ env.GITHUB_WORKSPACE }}/ios_certificate.p12'
+          fileName: '$GITHUB_WORKSPACE/ios_certificate.p12'
           encodedString: ${{ secrets.IOS_CERTIFICATE }}
       - run: ls
       - name: Build App
