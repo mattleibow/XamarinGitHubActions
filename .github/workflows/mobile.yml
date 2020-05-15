@@ -1,4 +1,4 @@
-name: Build Mobile App
+name: "Build Mobile App"
 
 on:
   push:
@@ -49,29 +49,3 @@ jobs:
           name: iOS App
           path: output
 
-  # Android
-  build_android:
-    name: Run Android App
-    runs-on: macos-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Setup Xamarin
-        uses: maxim-lobanov/setup-xamarin@v1.1
-        with:
-          xamarin-ios-version: latest
-          xamarin-mac-version: latest
-          xamarin-android-version: latest
-          xcode-version: latest
-      - name: Build App
-        run: msbuild ./MobileApp/MobileApp.Android/MobileApp.Android.csproj /r /p:Configuration=Release /t:SignAndroidPackage
-      - name: Copy Build Output
-        run: |
-          New-Item ./output -Type Directory -Force
-          Copy-Item ./MobileApp/MobileApp.Android/bin/Release/*-Signed.aab ./output/
-          Copy-Item ./MobileApp/MobileApp.Android/bin/Release/*.aab.mSYM ./output/ -Recurse -Force
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: Android App
-          path: output
