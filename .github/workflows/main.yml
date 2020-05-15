@@ -24,9 +24,19 @@ jobs:
       - name: Download iOS Certificate
         uses: timheuer/base64-to-file@v1.0.3
         with:
-          fileName: '${{ github.workspace }}/ios_certificate.p12'
+          fileName: 'ios_certificate.p12.gpg'
           encodedString: ${{ secrets.IOS_CERTIFICATE }}
-      - run: ls
+      - name: Download iOS Provisioning Profile
+        uses: timheuer/base64-to-file@v1.0.3
+        with:
+          fileName: 'ios_provisioning.mobileprovision.gpg'
+          encodedString: ${{ secrets.IOS_PROVISIONING }}
+      - uses: "tomlinscote/action-xcode-profiles@latest"
+        with:
+          password: "${{ secrets.GPG_PASSPHRASE }}"
+          profiles: '${{ env.RUNNER_TEMP }}/ios_provisioning.mobileprovision.gpg'
+          certificates: '${{ env.RUNNER_TEMP }}/ios_certificate.p12.gpg'
+          cert_passwords: ${{ secrets.IOS_CERTIFICATE_PASSWORD }}
       - name: Build App
         run: msbuild ./MobileApp.iOS/MobileApp.iOS.csproj /r /p:Configuration=Release /p:Platform=iPhone
 
