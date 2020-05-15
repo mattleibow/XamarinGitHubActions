@@ -18,7 +18,7 @@ jobs:
         uses: maxim-lobanov/setup-xamarin@v1.1
         with:
           xamarin-ios-version: latest
-          xamarin-mac-version: latest latest
+          xamarin-mac-version: latest
           xamarin-android-version: latest
           xcode-version: latest
       - name: Download iOS Certificate
@@ -41,7 +41,7 @@ jobs:
         uses: maxim-lobanov/setup-xamarin@v1.1
         with:
           xamarin-ios-version: latest
-          xamarin-mac-version: latest latest
+          xamarin-mac-version: latest
           xamarin-android-version: latest
           xcode-version: latest
       - name: Build App
