@@ -7,37 +7,22 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
-    name: Build App
-    runs-on: ubuntu-latest
+  # iOS
+  build_ios:
+    name: Build iOS App
+    runs-on: macos-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Setup .NET Core
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: 3.1.101
-      - name: Build
-        run: dotnet build -c Release
-      - name: Publish
-        run: dotnet publish -c Release -o output
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: App
-          path: output
-  run:
-    name: Run App
+      - name: Build App
+        run: msbuild ./MobileApp.iOS/MobileApp.iOS.csproj /r /p:Configuration=Release /p:Platform=iPhone
+
+  # Android
+  build_android:
+    name: Run Android App
     runs-on: windows-latest
-    needs: [ build ]
     steps:
-      - name: Setup .NET Core
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: 3.1.101
-      - name: Download Artifacts
-        uses: actions/download-artifact@v2
-        with:
-          name: App
-      - name: Run
-        run: dotnet XamarinGitHubActions.dll
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Build App
+        run: msbuild ./MobileApp.Android/MobileApp.Android.csproj /r /p:Configuration=Release /t:SignAndroidPackage
