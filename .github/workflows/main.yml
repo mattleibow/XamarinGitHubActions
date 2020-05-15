@@ -26,20 +26,20 @@ jobs:
         id: ios_cert
         with:
           fileName: 'ios_certificate.p12.gpg'
-          encodedString: ${{ secrets.IOS_CERTIFICATE }}
+          encodedString: '${{ secrets.IOS_CERTIFICATE }}'
       - name: Download iOS Provisioning Profile
         id: ios_prov
         uses: timheuer/base64-to-file@v1.0.3
         with:
           fileName: 'ios_provisioning.mobileprovision.gpg'
-          encodedString: ${{ secrets.IOS_PROVISIONING }}
+          encodedString: '${{ secrets.IOS_PROVISIONING }}'
       - name: Install iOS Certificates & Provisioning Profiles
-        uses: "tomlinscote/action-xcode-profiles@latest"
+        uses: tomlinscote/action-xcode-profiles@latest
         with:
-          password: "${{ secrets.GPG_PASSPHRASE }}"
-          profiles: ${{ steps.ios_prov.outputs.filePath }}
-          certificates: ${{ steps.ios_cert.outputs.filePath }}
-          cert_passwords: ${{ secrets.IOS_CERTIFICATE_PASSWORD }}
+          password: '${{ secrets.GPG_PASSPHRASE }}'
+          profiles: '${{ steps.ios_prov.outputs.filePath }}'
+          certificates: '${{ steps.ios_cert.outputs.filePath }}'
+          cert_passwords: '${{ secrets.IOS_CERTIFICATE_PASSWORD }}'
       - name: Build App
         run: msbuild ./MobileApp.iOS/MobileApp.iOS.csproj /r /p:Configuration=Release /p:Platform=iPhone
 
