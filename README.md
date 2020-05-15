@@ -15,7 +15,7 @@ The repo for my awesome 🤞🏻 talk...
 Certificates, provisioning profiles, keystores and others are gpg signed and stored as Base64 secrets.
 
 
-```ps
+```powershell
 # the secure, secret password
 $passphrase = "password"
 
