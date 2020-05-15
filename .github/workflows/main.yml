@@ -21,31 +21,16 @@ jobs:
           xamarin-mac-version: latest
           xamarin-android-version: latest
           xcode-version: latest
-      - name: Download iOS Certificate
-        uses: timheuer/base64-to-file@v1.0.3
-        id: ios_cert
-        with:
-          fileName: ios_certificate.p12.gpg
-          encodedString: ${{ secrets.IOS_CERTIFICATE }}
       - name: Download iOS Provisioning Profile
-        id: ios_prov
-        uses: timheuer/base64-to-file@v1.0.3
-        with:
-          fileName: ios_provisioning.mobileprovision.gpg
-          encodedString: ${{ secrets.IOS_PROVISIONING }}
-      - run: cat ${{ steps.ios_prov.outputs.filePath }}
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: gpg-thing.gpg
-          path: ${{ steps.ios_prov.outputs.filePath }}
-      - run: gpg --passphrase ${{ secrets.GPG_PASSPHRASE }} -d ${{ steps.ios_prov.outputs.filePath }}
+        run: [IO.File]::WriteAllBytes("iOSProvisioning.mobileprovision.gpg", [System.Convert]::FromBase64String("${{ secrets.IOS_PROVISIONING }}"))
+      - name: Download iOS Certificate
+        run: [IO.File]::WriteAllBytes("iOSCertificate.p12.gpg", [System.Convert]::FromBase64String("${{ secrets.IOS_CERTIFICATE }}"))
       - name: Install iOS Certificates & Provisioning Profiles
         uses: tomlinscote/action-xcode-profiles@latest
         with:
           password: ${{ secrets.GPG_PASSPHRASE }}
-          profiles: ${{ steps.ios_prov.outputs.filePath }}
-          certificates: ${{ steps.ios_cert.outputs.filePath }}
+          profiles: iOSProvisioning.mobileprovision.gpg
+          certificates: iOSCertificate.p12.gpg
           cert_passwords: ${{ secrets.IOS_CERTIFICATE_PASSWORD }}
       - name: Build App
         run: msbuild ./MobileApp.iOS/MobileApp.iOS.csproj /r /p:Configuration=Release /p:Platform=iPhone
