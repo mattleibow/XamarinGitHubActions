@@ -1,46 +1,46 @@
-name: Build Console App
+# name: Build Console App
 
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+# on:
+#   push:
+#     branches: [ master ]
+#   pull_request:
+#     branches: [ master ]
 
-jobs:
-  # Build and publish
-  build:
-    name: Build App
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      # - name: Setup .NET Core
-      #   uses: actions/setup-dotnet@v1
-      #   with:
-      #     dotnet-version: 3.1.101
-      # - name: Build
-      #   run: dotnet build -c Release ./ConsoleApp
-      # - name: Publish
-      #   run: dotnet publish -c Release -o output ./ConsoleApp
-      # - name: Upload Artifacts
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: Console App
-      #     path: output
+# jobs:
+#   # Build and publish
+#   build:
+#     name: Build App
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v2
+#       - name: Setup .NET Core
+#         uses: actions/setup-dotnet@v1
+#         with:
+#           dotnet-version: 3.1.101
+#       - name: Build
+#         run: dotnet build -c Release ./ConsoleApp
+#       - name: Publish
+#         run: dotnet publish -c Release -o output ./ConsoleApp
+#       - name: Upload Artifacts
+#         uses: actions/upload-artifact@v2
+#         with:
+#           name: Console App
+#           path: output
 
-  # Run the published app
-  run:
-    name: Run App
-    runs-on: windows-latest
-    needs: [ build ]
-    steps:
-      - name: Setup .NET Core
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: 3.1.101
-      # - name: Download Artifacts
-      #   uses: actions/download-artifact@v2
-      #   with:
-      #     name: Console App
-      # - name: Run
-      #   run: dotnet XamarinGitHubActions.dll
+#   # Run the published app
+#   run:
+#     name: Run App
+#     runs-on: windows-latest
+#     needs: [ build ]
+#     steps:
+#       - name: Setup .NET Core
+#         uses: actions/setup-dotnet@v1
+#         with:
+#           dotnet-version: 3.1.101
+#       - name: Download Artifacts
+#         uses: actions/download-artifact@v2
+#         with:
+#           name: Console App
+#       - name: Run
+#         run: dotnet XamarinGitHubActions.dll
