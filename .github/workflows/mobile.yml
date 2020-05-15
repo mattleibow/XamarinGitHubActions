@@ -28,6 +28,16 @@ jobs:
           xcode-version: latest
       - name: Build App
         run: msbuild ./MobileApp/MobileApp.Android/MobileApp.Android.csproj /r /p:Configuration=Release /t:SignAndroidPackage
+      - name: Copy Build Output
+        run: |
+          New-Item ./output -Type Directory -Force
+          Copy-Item ./MobileApp/MobileApp.Android/bin/Release/*-Signed.aab ./output/
+          Copy-Item ./MobileApp/MobileApp.Android/bin/Release/*.aab.mSYM ./output/ -Recurse -Force
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Android App
+          path: output
 
   # iOS
   build_ios:
@@ -56,3 +66,14 @@ jobs:
           cert_passwords: ${{ secrets.IOS_CERTIFICATE_PASSWORD }}
       - name: Build App
         run: msbuild ./MobileApp/MobileApp.iOS/MobileApp.iOS.csproj /r /p:Configuration=Release /p:Platform=iPhone
+      - name: Copy Build Output
+        run: |
+          New-Item ./output -Type Directory -Force
+          Copy-Item ./MobileApp/MobileApp.iOS/bin/Release/*.app ./output/ -Recurse -Force
+          Copy-Item ./MobileApp/MobileApp.iOS/bin/Release/*.app.dSYM ./output/ -Recurse -Force
+          Copy-Item ./MobileApp/MobileApp.iOS/bin/Release/*.app.mSYM ./output/ -Recurse -Force
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: iOS App
+          path: output
