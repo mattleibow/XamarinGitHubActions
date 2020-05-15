@@ -25,4 +25,4 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Build App
-        run: msbuild ./MobileApp.Android/MobileApp.Android.csproj /r /p:Configuration=Release /t:SignAndroidPackage
+        run: msbuild ./MobileApp.Android/MobileApp.Android.csproj /r /p:Configuration=Release /t:SignAndroidPackage /v:diag
