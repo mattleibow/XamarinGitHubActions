@@ -3,6 +3,9 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using MobileApp.Services;
 using MobileApp.Views;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 
 namespace MobileApp
 {
@@ -19,6 +22,10 @@ namespace MobileApp
 
         protected override void OnStart()
         {
+            AppCenter.Start(
+                "android=a793219c-529a-4f70-86cb-30e9f981bbac;" +
+                 "ios=a73ac036-537f-4fb4-89e1-8707cc4c981f",
+                 typeof(Analytics), typeof(Crashes));
         }
 
         protected override void OnSleep()
