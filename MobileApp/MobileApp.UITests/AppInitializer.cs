@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Runtime.InteropServices;
 using Xamarin.UITest;
 using Xamarin.UITest.Configuration;
 
@@ -21,7 +22,9 @@ namespace MobileApp.UITests
 		public static AndroidAppConfigurator Configure(AndroidAppConfigurator config) =>
 			TestEnvironment.IsTestCloud
 				? config
-				: config.ApkFile(Path.Combine(WorkingDirectory, "com.companyname.MobileApp.apk"));
+				: RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
+					? config.ApkFile(Path.Combine(WorkingDirectory, "com.companyname.MobileApp.apk"))
+					: config;
 
 		public static iOSAppConfigurator Configure(iOSAppConfigurator config) =>
 			TestEnvironment.IsTestCloud

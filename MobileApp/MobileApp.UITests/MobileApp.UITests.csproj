@@ -7,7 +7,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>MobileApp.UITests</RootNamespace>
     <AssemblyName>MobileApp.UITests</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -51,7 +51,7 @@
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
-  <Target Name="BuildPackages" AfterTargets="Build">
+  <Target Name="BuildPackages" AfterTargets="Build" Condition=" '$(OS)' == 'Windows_NT' ">
     <MSBuild Projects="..\MobileApp.Android\MobileApp.Android.csproj" Targets="PackageForAndroid" Properties="AndroidPackageFormat=apk" />
     <ItemGroup>
       <AppOutputs Include="..\MobileApp.Android\bin\$(Configuration)\*.apk" />
