@@ -5,6 +5,9 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
+    paths:
+      - 'MobileApp/**'
+      - '.github/workflows/mobile*'
 
 defaults:
   run:
@@ -22,17 +25,13 @@ jobs:
       - name: Setup Xamarin
         uses: maxim-lobanov/setup-xamarin@v1.1
         with:
-          xamarin-ios-version: latest
-          xamarin-mac-version: latest
           xamarin-android-version: latest
-          xcode-version: latest
       - name: Build App
         run: msbuild ./MobileApp/MobileApp.Android/MobileApp.Android.csproj /r /p:Configuration=Release /t:SignAndroidPackage
       - name: Copy Build Output
         run: |
           New-Item ./output -Type Directory -Force
-          Copy-Item ./MobileApp/MobileApp.Android/bin/Release/*-Signed.aab ./output/
-          Copy-Item ./MobileApp/MobileApp.Android/bin/Release/*.aab.mSYM ./output/ -Recurse -Force
+          Copy-Item ./MobileApp/MobileApp.Android/bin/Release/*-Signed.apk ./output/
       - name: Upload Artifacts
         uses: actions/upload-artifact@v2
         with:
@@ -51,7 +50,6 @@ jobs:
         with:
           xamarin-ios-version: latest
           xamarin-mac-version: latest
-          xamarin-android-version: latest
           xcode-version: latest
       - name: Download iOS Provisioning Profile
         run: '[IO.File]::WriteAllBytes("iOSProvisioning.mobileprovision.gpg", [System.Convert]::FromBase64String("${{ secrets.IOS_PROVISIONING }}"))'
