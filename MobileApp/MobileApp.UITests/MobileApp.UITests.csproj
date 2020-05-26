@@ -52,7 +52,7 @@
     </ProjectReference>
   </ItemGroup>
   <Target Name="BuildPackages" AfterTargets="Build" Condition=" '$(OS)' == 'Windows_NT' ">
-    <MSBuild Projects="..\MobileApp.Android\MobileApp.Android.csproj" Targets="PackageForAndroid" Properties="AndroidPackageFormat=apk" />
+    <MSBuild Projects="..\MobileApp.Android\MobileApp.Android.csproj" Targets="Build;PackageForAndroid" />
     <ItemGroup>
       <AppOutputs Include="..\MobileApp.Android\bin\$(Configuration)\*.apk" />
     </ItemGroup>

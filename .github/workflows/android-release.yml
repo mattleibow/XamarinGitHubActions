@@ -1,0 +1,43 @@
+name: Distribute Mobile App
+
+on:
+  release:
+    types: [ published ]
+  pull_request:
+    branches: [ master ]
+
+defaults:
+  run:
+    shell: pwsh
+
+jobs:
+
+  # Android
+  distribute_android:
+    name: Distribute Android App
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Xamarin
+        uses: maxim-lobanov/setup-xamarin@v1.1
+        with:
+          xamarin-android-version: latest
+      - name: Download Android Key Store
+        run: '[IO.File]::WriteAllBytes("mobileapp.keystore", [System.Convert]::FromBase64String("${{ secrets.ANDROID_KEYSTORE }}"))'
+      - name: Build App
+        run: |
+          msbuild ./MobileApp/MobileApp.Android/MobileApp.Android.csproj /r /p:Configuration=Release /t:SignAndroidPackage `
+            /p:AndroidSigningKeyStore=../../mobileapp.keystore `
+            /p:AndroidSigningStorePass="${{ secrets.ANDROID_KEYSTORE_PASSWORD }}" `
+            /p:AndroidSigningKeyAlias="testing" `
+            /p:AndroidSigningStorePass="${{ secrets.ANDROID_KEYSTORE_PASSWORD }}"
+      - name: Distribute Build
+        run: |
+          New-Item ./output -Type Directory -Force
+          Copy-Item ./MobileApp/MobileApp.Android/bin/Release/*-Signed.apk ./output/final.apk
+          appcenter distribute release `
+            --app "Xamarin-GitHub-Actions/Android-App" `
+            --group "Collaborators" `
+            --file "./output/final.apk" `
+            --token "${{ secrets.APPCENTER_TOKEN }}"
