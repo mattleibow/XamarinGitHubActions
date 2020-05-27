@@ -54,7 +54,7 @@ jobs:
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
         run: |
           nuget sources add -name "GitHub" `
-            -Source "https://nuget.pkg.github.com/mattleibow/XamarinGitHubActions/index.json" `
+            -Source "https://nuget.pkg.github.com/mattleibow/index.json" `
             -Username mattleibow `
             -Password ${{ secrets.GITHUB_TOKEN }}
           nuget push output\*.nupkg -Source "GitHub" -SkipDuplicate
