@@ -18,7 +18,11 @@ jobs:
         uses: actions/checkout@v2
       - name: Add MSBuild to PATH
         uses: microsoft/setup-msbuild@v1.0.0
+      - name: Add NuGet to PATH
+        uses: nuget/setup-nuget@v1
+        with:
+          nuget-api-key: ${{ secrets.NUGET_TOKEN }}
       - name: Build NuGet
         run: msbuild ./Library/Library.sln /r /p:Configuration=Release /p:IncludeSymbols=true /p:SymbolPackageFormat=snupkg /p:PackageOutputPath="${{ github.workspace }}/output" /t:Pack
       - name: Push to NuGet
-        run: nuget push output\*.nupkg -ApiKey=${{ secrets.NUGET_TOKEN }}
+        run: nuget push output\*.nupkg

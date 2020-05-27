@@ -48,6 +48,8 @@ jobs:
         with:
           name: NuGet Package
           path: output
+      - name: Add NuGet to PATH
+        uses: nuget/setup-nuget@v1
       - name: Push to GitHub Packages
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
         run: |
