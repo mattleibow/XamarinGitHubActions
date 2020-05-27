@@ -48,9 +48,8 @@ jobs:
         with:
           name: NuGet Package
           path: output
-      - run: echo "${{ github.event_name }} == 'push' ${{ github.ref }} == 'master'"
       - name: Push to GitHub Packages
-        if: ${{ github.event_name == 'push' && github.ref == 'master' }}
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
         run: |
           nuget sources add -name "GitHub" `
             -Source "https://nuget.pkg.github.com/mattleibow/XamarinGitHubActions/index.json" `
