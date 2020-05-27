@@ -42,12 +42,13 @@ jobs:
       - name: Add MSBuild to PATH
         uses: microsoft/setup-msbuild@v1.0.0
       - name: Build NuGet
-        run: msbuild ./Library/Library.sln /r /p:Configuration=Release /p:IncludeSymbols=true /p:SymbolPackageFormat=snupkg /p:PackageOutputPath="${{ github.workspace }}/output" /t:Pack
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: NuGet Package
-          path: output
+        run: |
+          msbuild ./Library/Library.sln /t:Pack /r `
+            /p:Configuration=Release `
+            /p:IncludeSymbols=true `
+            /p:SymbolPackageFormat=snupkg `
+            /p:PackageVersionSuffix=-preview.$([System.DateTime]::UtcNow.ToString("yy.MM.dd.HHmmss")) `
+            /p:PackageOutputPath="${{ github.workspace }}/output"
       - name: Add NuGet to PATH
         uses: nuget/setup-nuget@v1
       - name: Push to GitHub Packages

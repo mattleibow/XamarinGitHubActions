@@ -8,6 +8,7 @@
   <PropertyGroup>
     <PackageId>XamarinGitHubActions.Library</PackageId>
     <Version>1.0.0</Version>
+    <PackageVersion>$(Version)$(PackageVersionSuffix)</PackageVersion>
     <Authors>mattleibow</Authors>
     <Company>mattleibow</Company>
     <PackageDescription>This is just a sample package. Nothing special.</PackageDescription>
