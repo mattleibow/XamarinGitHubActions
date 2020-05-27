@@ -25,4 +25,4 @@ jobs:
       - name: Build NuGet
         run: msbuild ./Library/Library.sln /r /p:Configuration=Release /p:IncludeSymbols=true /p:SymbolPackageFormat=snupkg /p:PackageOutputPath="${{ github.workspace }}/output" /t:Pack
       - name: Push to NuGet
-        run: nuget push output\*.nupkg
+        run: nuget push output\*.nupkg -Source https://api.nuget.org/v3/index.json
