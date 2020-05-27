@@ -5,4 +5,13 @@
     <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">$(TargetFrameworks);uap10.0.16299;</TargetFrameworks>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <PackageId>XamarinGitHubActions.Library</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>mattleibow</Authors>
+    <Company>mattleibow</Company>
+    <PackageDescription>This is just a sample package. Nothing special.</PackageDescription>
+    <RepositoryUrl>https://github.com/mattleibow/XamarinGitHubActions</RepositoryUrl>
+  </PropertyGroup>
+
 </Project>
